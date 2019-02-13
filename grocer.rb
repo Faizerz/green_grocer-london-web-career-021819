@@ -12,11 +12,12 @@ def consolidate_cart(cart)
   new_cart
 end
 
+
 def apply_coupons(cart, coupons)
   new_item = {}
   coupons.each do |coupon_hash|
     cart.each do |veg, data|
-      if veg == coupon_hash[:item]
+      if veg == coupon_hash[:item] && data[:count] >= coupon_hash[:num]
         data[:count] = data[:count] - coupon_hash[:num]
 
         new_item["#{coupon_hash[:item]} W/COUPON"] = {
