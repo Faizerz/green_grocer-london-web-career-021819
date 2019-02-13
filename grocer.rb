@@ -20,16 +20,16 @@ def apply_coupons(cart, coupons)
       if veg == coupon_hash[:item] && data[:count] >= coupon_hash[:num]
         data[:count] = data[:count] - coupon_hash[:num]
 
-        new_item["#{coupon_hash[:item]} W/COUPON"] = {
-          :price => coupon_hash[:cost],
-          :clearance => data[:clearence],
-          :count => 1
-        }
+        new_name = coupon_hash[:item] + " W/COUPON"
+        new_item[new_name] = { :price => coupon_hash[:cost],
+                                :clearance => data[:clearence],
+                                :count => 1 }
       end
     end
   end
   cart.merge(new_item)
 end
+
 
 # def apply_clearance(cart)
 #   # code here
