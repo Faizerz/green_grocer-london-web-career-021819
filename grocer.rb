@@ -12,7 +12,7 @@ def consolidate_cart(cart)
   new_cart
 end
 
-def apply_coupons(cart,)
+def apply_coupons(cart, coupons)
   couponed_items= {}
   coupons.each do |coupon_hash|
     cart.each do |name, item_hash|
