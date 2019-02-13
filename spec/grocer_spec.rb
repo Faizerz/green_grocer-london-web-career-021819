@@ -46,6 +46,7 @@ describe "Grocer" do
       expect(result["KALE"][:count]).to eq(1)
     end
   end
+end
 
 #   describe "#apply_coupons" do
 #     context "base case - with perfect coupon (number of items identical):" do
