@@ -63,6 +63,8 @@ def apply_clearance(cart)
   cart
 end
 
+#Why dosn't the code just above work???
+
 def apply_clearance(cart)
   cart.each do |name, properties|
     if properties[:clearance]
