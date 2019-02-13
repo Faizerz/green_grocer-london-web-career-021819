@@ -54,7 +54,11 @@ end
 
 
 def apply_clearance(cart)
-  cart
+  cart.each do |item, hash|
+    if hash[:clearence] == true
+      hash[:price] = hash[:price]*0.8
+    end
+  end
 end
 
 def checkout(cart, coupons)
