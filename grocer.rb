@@ -12,9 +12,20 @@ def consolidate_cart(cart)
   new_cart
 end
 
-# def apply_coupons(cart, coupons)
-#   # code here
-# end
+def apply_coupons(cart, coupon)
+  cart.each do |veg, data|
+    if veg == coupon[:item]
+      data[:count] = data[:count] - coupon[:num]
+
+      cart["#{coupon[:item]} W/COUPON"] = {
+        :price => coupon[:cost],
+        :clearance => data[:clearence],
+        :count => 1
+      }
+    end
+  end
+  cart
+end
 
 # def apply_clearance(cart)
 #   # code here
