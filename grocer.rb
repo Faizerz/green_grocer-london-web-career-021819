@@ -20,10 +20,11 @@ def apply_coupons(cart, coupons)
         data[:count] = data[:count] - coupon_hash[:num]
 
         new_name = coupon_hash[:item] + " W/COUPON"
-        new_item[new_name] = { 
+        new_item[new_name] = {
           :price => coupon_hash[:cost],
           :clearance => data[:clearence],
-          :count => 1}
+          :count => 1
+        }
       end
     end
   end
