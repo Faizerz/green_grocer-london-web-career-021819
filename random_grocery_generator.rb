@@ -58,7 +58,15 @@ puts "Your total is #{checkout(cart: cart, coupons: coupons)}"
 
 
 
-
+def consolidate_cart(array)
+  new_cart = {}
+  array.each do |cart_hash|
+    cart_hash.each do |veg, data|
+      new_cart[veg] ||= {}
+      new_cart[veg] << data
+    end
+  end  
+end
 
 
 
