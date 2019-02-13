@@ -5,7 +5,7 @@ def consolidate_cart(cart)
       if new_cart[veg]
         new_cart[veg][:count] += 1
       else
-        new_cart[veg] << data
+        new_cart[veg] = data
         new_cart[veg][:count] = 1
     end
   end
