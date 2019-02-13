@@ -2,7 +2,7 @@ def consolidate_cart(cart)
   new_cart = {}
   cart.each do |cart_hash|
     cart_hash.each do |veg, data|
-      if new_cart[veg]
+      if new_cart[veg][:count]
         new_cart[veg][:count] += 1
       else
         new_cart[veg] = data
