@@ -48,110 +48,110 @@ describe "Grocer" do
   end
 end
 
-#   describe "#apply_coupons" do
-#     context "base case - with perfect coupon (number of items identical):" do
-#       before(:each) do
-#         @avocado = find_item('AVOCADO')
-#         @avocado_coupon = coupons.find { |coupon| coupon[:item] == "AVOCADO" }
-#         @cart = [@avocado, @avocado]
-#         @consolidated_cart = consolidate_cart(@cart)
-#         @avocado_result = apply_coupons(@consolidated_cart, [@avocado_coupon])
-#       end
+  describe "#apply_coupons" do
+    context "base case - with perfect coupon (number of items identical):" do
+      before(:each) do
+        @avocado = find_item('AVOCADO')
+        @avocado_coupon = coupons.find { |coupon| coupon[:item] == "AVOCADO" }
+        @cart = [@avocado, @avocado]
+        @consolidated_cart = consolidate_cart(@cart)
+        @avocado_result = apply_coupons(@consolidated_cart, [@avocado_coupon])
+      end
 
-#       it "adds a new key, value pair to the cart hash called 'ITEM NAME W/COUPON'" do
-#         expect(@avocado_result.keys).to include("AVOCADO W/COUPON")
-#       end
+      it "adds a new key, value pair to the cart hash called 'ITEM NAME W/COUPON'" do
+        expect(@avocado_result.keys).to include("AVOCADO W/COUPON")
+      end
 
-#       it "adds the coupon price to the property hash of couponed item" do
-#         expect(@avocado_result["AVOCADO W/COUPON"][:price]).to eq(5.00)
-#       end
+      it "adds the coupon price to the property hash of couponed item" do
+        expect(@avocado_result["AVOCADO W/COUPON"][:price]).to eq(5.00)
+      end
 
-#       it "adds the count number to the property hash of couponed item" do
-#         expect(@avocado_result["AVOCADO W/COUPON"][:count]).to eq(1)
-#       end
+      it "adds the count number to the property hash of couponed item" do
+        expect(@avocado_result["AVOCADO W/COUPON"][:count]).to eq(1)
+      end
 
-#       it "removes the number of discounted items from the original item's count" do
-#         expect(@avocado_result["AVOCADO"][:price]).to eq(3.00)
-#         expect(@avocado_result["AVOCADO"][:count]).to eq(0)
-#       end
+      it "removes the number of discounted items from the original item's count" do
+        expect(@avocado_result["AVOCADO"][:price]).to eq(3.00)
+        expect(@avocado_result["AVOCADO"][:count]).to eq(0)
+      end
 
-#       it "remembers if the item was on clearance" do
-#         expect(@avocado_result["AVOCADO W/COUPON"][:clearance]).to eq(true)
-#       end
+      it "remembers if the item was on clearance" do
+        expect(@avocado_result["AVOCADO W/COUPON"][:clearance]).to eq(true)
+      end
 
-#     end
+    end
 
-#     context "more advanced cases:" do
+    context "more advanced cases:" do
 
-#       it "accounts for when there are more items than the coupon allows" do
-#         cheese = find_item('CHEESE')
-#         cart = Array.new(5, cheese)
-#         consolidated_cart = consolidate_cart(cart)
-#         cheese_coupon = find_coupon("CHEESE")
+      it "accounts for when there are more items than the coupon allows" do
+        cheese = find_item('CHEESE')
+        cart = Array.new(5, cheese)
+        consolidated_cart = consolidate_cart(cart)
+        cheese_coupon = find_coupon("CHEESE")
 
-#         cheese_result = apply_coupons(consolidated_cart, [cheese_coupon])
+        cheese_result = apply_coupons(consolidated_cart, [cheese_coupon])
 
-#         expect(cheese_result["CHEESE"][:price]).to eq(6.50)
-#         expect(cheese_result["CHEESE"][:count]).to eq(2)
-#         expect(cheese_result["CHEESE W/COUPON"][:price]).to eq(15.00)
-#         expect(cheese_result["CHEESE W/COUPON"][:count]).to eq(1)
-#         expect(cheese_result["CHEESE W/COUPON"][:clearance]).to eq(false)
-#       end
+        expect(cheese_result["CHEESE"][:price]).to eq(6.50)
+        expect(cheese_result["CHEESE"][:count]).to eq(2)
+        expect(cheese_result["CHEESE W/COUPON"][:price]).to eq(15.00)
+        expect(cheese_result["CHEESE W/COUPON"][:count]).to eq(1)
+        expect(cheese_result["CHEESE W/COUPON"][:clearance]).to eq(false)
+      end
 
-#       it "doesn't break if the coupon doesn't apply to any items" do
-#         cheese = find_item('CHEESE')
-#         cart = Array.new(2, cheese)
-#         consolidated_cart = consolidate_cart(cart)
+      it "doesn't break if the coupon doesn't apply to any items" do
+        cheese = find_item('CHEESE')
+        cart = Array.new(2, cheese)
+        consolidated_cart = consolidate_cart(cart)
 
-#         irrelevant = apply_coupons(consolidated_cart, [find_coupon("AVOCADO")])
-#         expect(irrelevant["CHEESE"][:price]).to eq(6.50)
-#         expect(irrelevant["CHEESE"][:count]).to eq(2)
-#         expect(irrelevant.keys).to_not include("AVOCADO W/COUPON")
-#         expect(irrelevant.keys).to_not include("AVOCADO")
-#       end
+        irrelevant = apply_coupons(consolidated_cart, [find_coupon("AVOCADO")])
+        expect(irrelevant["CHEESE"][:price]).to eq(6.50)
+        expect(irrelevant["CHEESE"][:count]).to eq(2)
+        expect(irrelevant.keys).to_not include("AVOCADO W/COUPON")
+        expect(irrelevant.keys).to_not include("AVOCADO")
+      end
 
-#       it "can apply multiple coupons" do
-#         avocado = find_item('AVOCADO')
-#         cheese = find_item('CHEESE')
-#         cart = Array.new(4, cheese)
-#         3.times { cart << avocado }
-#         consolidated_cart = consolidate_cart(cart)
-#         coupons = [find_coupon("AVOCADO"), find_coupon("CHEESE")]
+      it "can apply multiple coupons" do
+        avocado = find_item('AVOCADO')
+        cheese = find_item('CHEESE')
+        cart = Array.new(4, cheese)
+        3.times { cart << avocado }
+        consolidated_cart = consolidate_cart(cart)
+        coupons = [find_coupon("AVOCADO"), find_coupon("CHEESE")]
 
-#         multiple_coupons = apply_coupons(consolidated_cart, coupons)
+        multiple_coupons = apply_coupons(consolidated_cart, coupons)
 
-#         ["AVOCADO", "CHEESE"].each { |item| expect(multiple_coupons[item][:count]).to eq(1) }
-#         expect(multiple_coupons["CHEESE"][:price]).to eq(6.50)
-#         expect(multiple_coupons["AVOCADO"][:price]).to eq(3.00)
-#         expect(multiple_coupons["CHEESE W/COUPON"][:price]).to eq(15.00)
-#         expect(multiple_coupons["CHEESE W/COUPON"][:count]).to eq(1)
-#         expect(multiple_coupons["CHEESE W/COUPON"][:clearance]).to eq(false)
-#         expect(multiple_coupons["AVOCADO W/COUPON"][:price]).to eq(5.00)
-#         expect(multiple_coupons["AVOCADO W/COUPON"][:count]).to eq(1)
-#         expect(multiple_coupons["AVOCADO W/COUPON"][:clearance]).to eq(true)
-#       end
+        ["AVOCADO", "CHEESE"].each { |item| expect(multiple_coupons[item][:count]).to eq(1) }
+        expect(multiple_coupons["CHEESE"][:price]).to eq(6.50)
+        expect(multiple_coupons["AVOCADO"][:price]).to eq(3.00)
+        expect(multiple_coupons["CHEESE W/COUPON"][:price]).to eq(15.00)
+        expect(multiple_coupons["CHEESE W/COUPON"][:count]).to eq(1)
+        expect(multiple_coupons["CHEESE W/COUPON"][:clearance]).to eq(false)
+        expect(multiple_coupons["AVOCADO W/COUPON"][:price]).to eq(5.00)
+        expect(multiple_coupons["AVOCADO W/COUPON"][:count]).to eq(1)
+        expect(multiple_coupons["AVOCADO W/COUPON"][:clearance]).to eq(true)
+      end
 
-#       it "doesn't break if there is no coupon" do
-#         cheese = items.find { |item| item['CHEESE'] }
-#         cart = [cheese, cheese]
-#         consolidated_cart = consolidate_cart(cart)
-#         no_coupon_result = apply_coupons(consolidated_cart, [])
-#         expect(no_coupon_result["CHEESE"][:price]).to eq(6.50)
-#         expect(no_coupon_result["CHEESE"][:count]).to eq(2)
-#       end
+      it "doesn't break if there is no coupon" do
+        cheese = items.find { |item| item['CHEESE'] }
+        cart = [cheese, cheese]
+        consolidated_cart = consolidate_cart(cart)
+        no_coupon_result = apply_coupons(consolidated_cart, [])
+        expect(no_coupon_result["CHEESE"][:price]).to eq(6.50)
+        expect(no_coupon_result["CHEESE"][:count]).to eq(2)
+      end
 
-#       it "can increment coupon count if two are applied" do
-#         avocado = find_item("AVOCADO")
-#         coupon = find_coupon("AVOCADO")
-#         consol_cart = consolidate_cart([avocado, avocado, avocado, avocado, avocado])
-#         two_coupon_result = apply_coupons(consol_cart, [coupon, coupon])
-#         expect(two_coupon_result["AVOCADO"][:count]).to eq(1)
-#         expect(two_coupon_result["AVOCADO W/COUPON"][:price]).to eq(5.00)
-#         expect(two_coupon_result["AVOCADO"][:price]).to eq(3.00)
-#         expect(two_coupon_result["AVOCADO W/COUPON"][:count]).to eq(2)
-#       end
-#     end
-#   end
+      it "can increment coupon count if two are applied" do
+        avocado = find_item("AVOCADO")
+        coupon = find_coupon("AVOCADO")
+        consol_cart = consolidate_cart([avocado, avocado, avocado, avocado, avocado])
+        two_coupon_result = apply_coupons(consol_cart, [coupon, coupon])
+        expect(two_coupon_result["AVOCADO"][:count]).to eq(1)
+        expect(two_coupon_result["AVOCADO W/COUPON"][:price]).to eq(5.00)
+        expect(two_coupon_result["AVOCADO"][:price]).to eq(3.00)
+        expect(two_coupon_result["AVOCADO W/COUPON"][:count]).to eq(2)
+      end
+    end
+  end
 
 #   describe "#apply_clearance" do
 #     it "takes 20% off price if the item is on clearance" do
