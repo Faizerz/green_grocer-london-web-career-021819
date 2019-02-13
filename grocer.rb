@@ -1,4 +1,4 @@
-def consolidate_cart(cart: [])
+def consolidate_cart(cart)
   new_cart = {}
   cart.each do |cart_hash|
     cart_hash.each do |veg, data|
